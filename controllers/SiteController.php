@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-
+use app\models\EntryForm;
 class SiteController extends Controller
 {
     /**
@@ -53,7 +53,22 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    public function actionEntry()
+    {
+        $model = new EntryForm();
+    
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Дані успішно перевірені
+    
+            // Тут можна виконати додаткові дії з $model, наприклад, зберегти в базі даних або відправити електронний лист
+    
+            return $this->render('entry-confirm', ['model' => $model]);
+        } else {
+            // Відображення форми або відображення помилок валідації
+            return $this->render('entry', ['model' => $model]);
+        }
+    }
+    
     /**
      * Displays homepage.
      *
